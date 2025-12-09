@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - O Marceneiro</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <img src="logo.svg" alt="O Marceneiro">
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+                <span id="userMenu" style="display: none;">
+                    <a href="pedidos.html">Meus Pedidos</a>
+                    <a href="carrinho.html">Carrinho</a>
+                    <span id="adminMenu" style="display: none;">
+                        <a href="admin.html">Admin</a>
+                    </span>
+                    <a href="#" id="logoutBtn">Sair</a>
+                </span>
+                <span id="guestMenu">
+                    <a href="login.html">Entrar</a>
+                    <a href="cadastro.html" class="btn-primary">Cadastrar</a>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="admin-container container">
+        <div class="admin-header">
+            <h1 class="section-title" style="margin: 0;">Painel Administrativo</h1>
+            <a href="admin-produto.html" class="btn-primary">+ Adicionar Produto</a>
+        </div>
+
+        <div class="admin-stats">
+            <div class="stat-card primary">
+                <div class="stat-label">Total de Produtos</div>
+                <div class="stat-value" id="totalProducts">0</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-label">Produtos em Estoque</div>
+                <div class="stat-value" id="inStockProducts">0</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="stat-label">Produtos em Destaque</div>
+                <div class="stat-value" id="featuredProductsCount">0</div>
+            </div>
+        </div>
+
+        <!-- Painel de Análise IA -->
+        <div class="cart-item" style="margin-top: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary);">🤖 Análise Inteligente</h2>
+                <button type="button" onclick="refreshAIAnalysis()" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Atualizar Análise</button>
+            </div>
+            
+            <div id="aiAnalysisContainer">
+                <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                    Carregando análise...
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Preço</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="adminProducts">
+                    <!-- Produtos serão carregados via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3>O Marceneiro</h3>
+                    <p>Móveis planejados de qualidade para transformar sua casa.</p>
+                </div>
+                <div>
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="pedidos.html">Meus Pedidos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Contato</h3>
+                    <p>Email: contato@omarceneiro.com<br>Telefone: (11) 9999-9999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 O Marceneiro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="utils.js"></script>
+    <script src="ai-assistant.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Verificar se é admin
+        const user = getCurrentUser();
+        if (!user || user.role !== 'ADMIN') {
+            alert('Acesso negado. Apenas administradores podem acessar esta página.');
+            globalThis.location.href = 'index.html';
+        }
+        
+        updateNavigation().catch(err => console.error('Erro ao atualizar navegação:', err));
+        loadAdminProducts();
+        loadAdminStats();
+        loadAIAnalysis();
+
+        function loadAIAnalysis() {
+            const container = document.getElementById('aiAnalysisContainer');
+            if (!container) return;
+
+            // Mostrar loading
+            if (typeof loading !== 'undefined') {
+                loading.show(container);
+            }
+
+            setTimeout(() => {
+                const improvements = aiAssistant.analyzeSiteImprovements();
+                const allProducts = JSON.parse(localStorage.getItem('products')) || [];
+                
+                let html = `
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="font-size: 3rem; font-weight: 800; color: ${improvements.score >= 80 ? 'var(--success)' : improvements.score >= 60 ? 'var(--warning)' : 'var(--error)'};">
+                                ${improvements.score}
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; font-size: 1.125rem;">Score Geral do Site</div>
+                                <div style="color: var(--text-secondary); font-size: 0.875rem;">de ${improvements.maxScore} pontos</div>
+                            </div>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${improvements.score}%; height: 100%; background: ${improvements.score >= 80 ? 'var(--success)' : improvements.score >= 60 ? 'var(--warning)' : 'var(--error)'}; transition: width 0.5s;"></div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                        <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                            <div style="font-weight: 700; margin-bottom: 0.5rem;">📦 Produtos</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">${improvements.categories.produtos.score}</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">pontos</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                            <div style="font-weight: 700; margin-bottom: 0.5rem;">💰 Preços</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">${improvements.categories.preços.score}</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">pontos</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                            <div style="font-weight: 700; margin-bottom: 0.5rem;">🛒 Conversão</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">${improvements.categories.conversão.score}</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">pontos</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                            <div style="font-weight: 700; margin-bottom: 0.5rem;">✨ Experiência</div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">${improvements.categories.experiência.score}</div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary);">pontos</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">🎯 Ações Prioritárias</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            ${improvements.priorityActions.map((action, index) => `
+                                <li style="padding: 0.75rem; background: var(--bg-secondary); border-left: 3px solid var(--primary); margin-bottom: 0.5rem; border-radius: 4px;">
+                                    <strong>${index + 1}.</strong> ${action}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">📊 Análise Detalhada por Categoria</h3>
+                        ${Object.entries(improvements.categories).map(([key, data]) => `
+                            <div style="margin-bottom: 1.5rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                    <div style="font-weight: 700; text-transform: capitalize;">${key}</div>
+                                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">${data.score}</div>
+                                </div>
+                                ${data.suggestions.length > 0 ? `
+                                    <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.875rem; color: var(--text-secondary);">
+                                        ${data.suggestions.map(s => `<li style="margin-bottom: 0.25rem;">${s}</li>`).join('')}
+                                    </ul>
+                                ` : '<div style="font-size: 0.875rem; color: var(--success);">✓ Tudo está otimizado nesta categoria!</div>'}
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="padding: 1rem; background: #EFF6FF; border-left: 4px solid var(--info); border-radius: 8px;">
+                        <div style="font-weight: 700; margin-bottom: 0.5rem; color: var(--info);">💡 Dica da IA</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            ${improvements.score >= 80 
+                                ? 'Parabéns! Seu site está bem otimizado. Continue monitorando e fazendo melhorias incrementais.'
+                                : improvements.score >= 60
+                                ? 'Seu site está em bom estado, mas há oportunidades de melhoria. Foque nas ações prioritárias listadas acima.'
+                                : 'Há várias áreas que precisam de atenção. Priorize as ações críticas para melhorar significativamente o desempenho do site.'}
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML = html;
+
+                if (typeof loading !== 'undefined') {
+                    loading.hide(container);
+                }
+            }, 500);
+        }
+
+        function refreshAIAnalysis() {
+            aiAssistant.clearCache();
+            loadAIAnalysis();
+            if (typeof notifications !== 'undefined') {
+                notifications.show('Análise atualizada!', 'success');
+            }
+        }
+
+        globalThis.refreshAIAnalysis = refreshAIAnalysis;
+    </script>
+</body>
+</html>
+

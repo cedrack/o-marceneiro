@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Produto - O Marceneiro</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <img src="logo.svg" alt="O Marceneiro">
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+                <span id="userMenu" style="display: none;">
+                    <a href="pedidos.html">Meus Pedidos</a>
+                    <a href="carrinho.html">Carrinho</a>
+                    <span id="adminMenu" style="display: none;">
+                        <a href="admin.html">Admin</a>
+                    </span>
+                    <a href="#" id="logoutBtn">Sair</a>
+                </span>
+                <span id="guestMenu">
+                    <a href="login.html">Entrar</a>
+                    <a href="cadastro.html" class="btn-primary">Cadastrar</a>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container" style="padding: 2rem 0; max-width: 800px;">
+        <h1 class="section-title" style="margin-bottom: 2rem;" id="pageTitle">Novo Produto</h1>
+
+        <div class="cart-item">
+            <form id="productForm">
+                <div class="form-group">
+                    <label class="form-label">Nome do Produto *</label>
+                    <input type="text" id="name" class="form-input" placeholder="Ex: Armário Planejado 3 Portas" required minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Descrição *</label>
+                    <textarea id="description" class="form-textarea" placeholder="Descreva o produto em detalhes..." required minlength="10"></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label class="form-label">Preço (R$) *</label>
+                    <input type="number" id="price" class="form-input" step="0.01" min="0.01" placeholder="0.00" required>
+                    <div id="priceAnalysis" style="margin-top: 0.5rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px; display: none;">
+                        <div id="priceAnalysisContent"></div>
+                    </div>
+                </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Categoria *</label>
+                        <select id="category" class="form-select" required>
+                            <option value="">Selecione...</option>
+                            <option value="Armários">Armários</option>
+                            <option value="Cozinhas">Cozinhas</option>
+                            <option value="Quartos">Quartos</option>
+                            <option value="Salas">Salas</option>
+                            <option value="Escritórios">Escritórios</option>
+                            <option value="Banheiros">Banheiros</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">URL da Imagem (opcional)</label>
+                    <input type="url" id="imageUrl" class="form-input" placeholder="https://exemplo.com/imagem.jpg">
+                    <small style="color: #6b7280; font-size: 0.875rem;">Você pode usar URLs de imagens do Unsplash ou outros serviços</small>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="inStock" checked>
+                        <span>Em Estoque</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" id="featured">
+                        <span>Produto em Destaque</span>
+                    </label>
+                </div>
+
+                <div id="productRecommendations" style="margin-bottom: 1.5rem; padding: 1rem; background: #EFF6FF; border-left: 4px solid var(--info); border-radius: 8px; display: none;">
+                    <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--info);">💡 Recomendações da IA</h3>
+                    <div id="recommendationsContent"></div>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn-submit" style="flex: 1;" id="submitBtn">Criar Produto</button>
+                    <a href="admin.html" class="btn-submit" style="flex: 0; padding: 0.75rem 1.5rem; text-align: center; text-decoration: none; background: #6b7280;">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3>O Marceneiro</h3>
+                    <p>Móveis planejados de qualidade para transformar sua casa.</p>
+                </div>
+                <div>
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="pedidos.html">Meus Pedidos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Contato</h3>
+                    <p>Email: contato@omarceneiro.com<br>Telefone: (11) 9999-9999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 O Marceneiro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="ai-assistant.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Verificar se é admin
+        const user = getCurrentUser();
+        if (!user || user.role !== 'ADMIN') {
+            alert('Acesso negado. Apenas administradores podem acessar esta página.');
+            globalThis.location.href = 'index.html';
+        }
+        
+        updateNavigation().catch(err => console.error('Erro ao atualizar navegação:', err));
+        
+        // Verificar se é edição
+        const urlParams = new URLSearchParams(globalThis.location.search);
+        const productId = urlParams.get('id');
+        let editingProduct = null;
+        
+        if (productId) {
+            editingProduct = products.find(p => p.id === productId);
+            if (editingProduct) {
+                document.getElementById('pageTitle').textContent = 'Editar Produto';
+                document.getElementById('name').value = editingProduct.name;
+                document.getElementById('description').value = editingProduct.description;
+                document.getElementById('price').value = editingProduct.price;
+                document.getElementById('category').value = editingProduct.category;
+                document.getElementById('imageUrl').value = editingProduct.images[0] || '';
+                document.getElementById('inStock').checked = editingProduct.inStock;
+                document.getElementById('featured').checked = editingProduct.featured;
+            }
+        }
+        
+        // Análise em tempo real do preço
+        document.getElementById('price').addEventListener('input', function() {
+            const price = parseFloat(this.value);
+            const category = document.getElementById('category').value;
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            
+            if (price && price > 0 && category) {
+                const tempProduct = {
+                    id: 'temp',
+                    name: name || 'Produto',
+                    description: description || '',
+                    price: price,
+                    category: category,
+                    images: [],
+                    inStock: true,
+                    featured: false
+                };
+                
+                const analysis = aiAssistant.analyzePrice(tempProduct);
+                displayPriceAnalysis(analysis);
+            } else {
+                document.getElementById('priceAnalysis').style.display = 'none';
+            }
+        });
+
+        // Análise completa do produto
+        function analyzeProduct() {
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const category = document.getElementById('category').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            const inStock = document.getElementById('inStock').checked;
+            const featured = document.getElementById('featured').checked;
+
+            if (!name || !description || !price || !category) {
+                return;
+            }
+
+            const tempProduct = {
+                id: 'temp',
+                name: name,
+                description: description,
+                price: price,
+                category: category,
+                images: imageUrl ? [imageUrl] : [],
+                inStock: inStock,
+                featured: featured
+            };
+
+            const analysis = aiAssistant.analyzeProduct(tempProduct);
+            displayRecommendations(analysis.recommendations);
+        }
+
+        // Exibir análise de preço
+        function displayPriceAnalysis(analysis) {
+            const container = document.getElementById('priceAnalysis');
+            const content = document.getElementById('priceAnalysisContent');
+            
+            if (!container || !content) return;
+
+            let html = '<div style="font-weight: 600; margin-bottom: 0.5rem;">📊 Análise de Preço</div>';
+            
+            if (analysis.categoryAverage > 0) {
+                html += `<div style="font-size: 0.875rem; margin-bottom: 0.5rem;">Média da categoria: R$ ${analysis.categoryAverage.toFixed(2)}</div>`;
+                html += `<div style="font-size: 0.875rem; margin-bottom: 0.5rem;">Faixa: R$ ${analysis.categoryMin.toFixed(2)} - R$ ${analysis.categoryMax.toFixed(2)}</div>`;
+                html += `<div style="font-size: 0.875rem; margin-bottom: 0.75rem; padding: 0.5rem; background: ${analysis.competitiveness === 'muito competitivo' ? '#FEF3C7' : analysis.competitiveness === 'acima da média' ? '#FEE2E2' : '#D1FAE5'}; border-radius: 4px;">Competitividade: <strong>${analysis.competitiveness}</strong></div>`;
+            }
+
+            if (analysis.insights.length > 0) {
+                html += '<div style="margin-top: 0.75rem;"><strong>💡 Insights:</strong><ul style="margin-top: 0.5rem; padding-left: 1.5rem; font-size: 0.875rem;">';
+                analysis.insights.forEach(insight => {
+                    html += `<li style="margin-bottom: 0.25rem;">${insight}</li>`;
+                });
+                html += '</ul></div>';
+            }
+
+            if (analysis.warnings.length > 0) {
+                html += '<div style="margin-top: 0.75rem;"><strong>⚠️ Atenção:</strong><ul style="margin-top: 0.5rem; padding-left: 1.5rem; font-size: 0.875rem; color: var(--warning);">';
+                analysis.warnings.forEach(warning => {
+                    html += `<li style="margin-bottom: 0.25rem;">${warning}</li>`;
+                });
+                html += '</ul></div>';
+            }
+
+            if (analysis.recommendation !== 'manter') {
+                const color = analysis.recommendation === 'aumentar' ? 'var(--success)' : 'var(--warning)';
+                html += `<div style="margin-top: 0.75rem; padding: 0.75rem; background: ${color}20; border-left: 3px solid ${color}; border-radius: 4px;">`;
+                html += `<strong>Sugestão:</strong> ${analysis.recommendation === 'aumentar' ? 'Aumentar' : 'Reduzir'} preço para R$ ${analysis.suggestedPrice.toFixed(2)}`;
+                html += '</div>';
+            }
+
+            content.innerHTML = html;
+            container.style.display = 'block';
+        }
+
+        // Exibir recomendações
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('productRecommendations');
+            const content = document.getElementById('recommendationsContent');
+            
+            if (!container || !content) return;
+
+            if (recommendations.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            let html = '';
+            recommendations.forEach((rec, index) => {
+                const icon = rec.type === 'critical' ? '🔴' : rec.type === 'important' ? '🟡' : '💡';
+                const bgColor = rec.type === 'critical' ? '#FEE2E2' : rec.type === 'important' ? '#FEF3C7' : '#EFF6FF';
+                
+                html += `
+                    <div style="margin-bottom: ${index < recommendations.length - 1 ? '1rem' : '0'}; padding: 1rem; background: ${bgColor}; border-radius: 6px;">
+                        <div style="font-weight: 700; margin-bottom: 0.5rem;">${icon} ${rec.title}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">${rec.description}</div>
+                        <div style="font-size: 0.875rem; font-weight: 600; color: var(--primary);">${rec.action}</div>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+            container.style.display = 'block';
+        }
+
+        // Função debounce simples
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Analisar produto quando campos mudarem
+        ['name', 'description', 'price', 'category', 'imageUrl'].forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('input', debounce(analyzeProduct, 500));
+                field.addEventListener('change', analyzeProduct);
+            }
+        });
+
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const category = document.getElementById('category').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            const inStock = document.getElementById('inStock').checked;
+            const featured = document.getElementById('featured').checked;
+            
+            if (!name || !description || !price || !category) {
+                if (typeof notifications !== 'undefined') {
+                    notifications.show('Por favor, preencha todos os campos obrigatórios', 'error');
+                } else {
+                    alert('Por favor, preencha todos os campos obrigatórios');
+                }
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Salvando...';
+
+            // Limpar cache da IA
+            aiAssistant.clearCache();
+
+            if (editingProduct) {
+                // Editar produto existente
+                editingProduct.name = name;
+                editingProduct.description = description;
+                editingProduct.price = price;
+                editingProduct.category = category;
+                editingProduct.images = imageUrl ? [imageUrl] : [];
+                editingProduct.inStock = inStock;
+                editingProduct.featured = featured;
+                
+                if (typeof notifications !== 'undefined') {
+                    notifications.show('Produto atualizado com sucesso!', 'success');
+                } else {
+                    alert('Produto atualizado com sucesso!');
+                }
+            } else {
+                // Criar novo produto
+                const newProduct = {
+                    id: Date.now().toString(),
+                    name: name,
+                    description: description,
+                    price: price,
+                    category: category,
+                    images: imageUrl ? [imageUrl] : [],
+                    videos: [],
+                    inStock: inStock,
+                    featured: featured
+                };
+                products.push(newProduct);
+                
+                if (typeof notifications !== 'undefined') {
+                    notifications.show('Produto criado com sucesso!', 'success');
+                } else {
+                    alert('Produto criado com sucesso!');
+                }
+            }
+            
+            saveProducts();
+            
+            setTimeout(() => {
+                globalThis.location.href = 'admin.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+

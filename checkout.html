@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - O Marceneiro</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <img src="logo.svg" alt="O Marceneiro">
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+                <span id="userMenu" style="display: none;">
+                    <a href="pedidos.html">Meus Pedidos</a>
+                    <a href="carrinho.html">Carrinho</a>
+                    <span id="adminMenu" style="display: none;">
+                        <a href="admin.html">Admin</a>
+                    </span>
+                    <a href="#" id="logoutBtn">Sair</a>
+                </span>
+                <span id="guestMenu">
+                    <a href="login.html">Entrar</a>
+                    <a href="cadastro.html" class="btn-primary">Cadastrar</a>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="cart-container container">
+        <h1 class="section-title" style="margin-bottom: 1rem;">Finalizar Compra</h1>
+        <p class="section-subtitle" style="margin-bottom: 2rem;">Complete seu pedido informando os dados de entrega</p>
+        
+        <div class="cart-grid">
+            <div>
+                <div class="cart-item" style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-primary);">Endereço de Entrega</h2>
+                    <textarea id="shippingAddress" class="form-textarea" placeholder="Rua, número, complemento, bairro, cidade, CEP" required></textarea>
+                </div>
+                
+                <div class="cart-item" style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-primary);">Forma de Pagamento</h2>
+                    <div class="payment-methods">
+                        <label class="payment-option" for="payment-pix">
+                            <input type="radio" name="paymentMethod" id="payment-pix" value="pix" checked>
+                            <div class="payment-option-content">
+                                <div class="payment-icon">💳</div>
+                                <div>
+                                    <div class="payment-name">PIX</div>
+                                    <div class="payment-description">Aprovação imediata - 5% de desconto</div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="payment-option" for="payment-credit">
+                            <input type="radio" name="paymentMethod" id="payment-credit" value="credit">
+                            <div class="payment-option-content">
+                                <div class="payment-icon">💳</div>
+                                <div>
+                                    <div class="payment-name">Cartão de Crédito</div>
+                                    <div class="payment-description">Parcelamento em até 12x</div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="payment-option" for="payment-debit">
+                            <input type="radio" name="paymentMethod" id="payment-debit" value="debit">
+                            <div class="payment-option-content">
+                                <div class="payment-icon">💳</div>
+                                <div>
+                                    <div class="payment-name">Cartão de Débito</div>
+                                    <div class="payment-description">Desconto de 3%</div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="payment-option" for="payment-boleto">
+                            <input type="radio" name="paymentMethod" id="payment-boleto" value="boleto">
+                            <div class="payment-option-content">
+                                <div class="payment-icon">📄</div>
+                                <div>
+                                    <div class="payment-name">Boleto Bancário</div>
+                                    <div class="payment-description">Vencimento em 3 dias úteis</div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="payment-option" for="payment-cash">
+                            <input type="radio" name="paymentMethod" id="payment-cash" value="cash">
+                            <div class="payment-option-content">
+                                <div class="payment-icon">💵</div>
+                                <div>
+                                    <div class="payment-name">Dinheiro na Entrega</div>
+                                    <div class="payment-description">Pagamento no momento da entrega</div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div id="paymentDetails" style="margin-top: 1rem; padding: 1rem; background: var(--bg-secondary); border-radius: 8px; display: none;">
+                        <div id="pixDetails" style="display: none;">
+                            <p style="font-weight: 600; margin-bottom: 0.5rem;">Chave PIX:</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">contato@omarceneiro.com</p>
+                            <p style="margin-top: 0.75rem; font-size: 0.875rem; color: var(--text-secondary);">Após o pagamento, envie o comprovante para contato@omarceneiro.com</p>
+                        </div>
+                        <div id="creditDetails" style="display: none;">
+                            <div style="margin-bottom: 1rem;">
+                                <label class="form-label" for="cardNumber">Número do Cartão</label>
+                                <input type="text" id="cardNumber" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label class="form-label" for="cardExpiry">Validade</label>
+                                    <input type="text" id="cardExpiry" class="form-input" placeholder="MM/AA" maxlength="5">
+                                </div>
+                                <div>
+                                    <label class="form-label" for="cardCVV">CVV</label>
+                                    <input type="text" id="cardCVV" class="form-input" placeholder="123" maxlength="3">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label" for="cardName">Nome no Cartão</label>
+                                <input type="text" id="cardName" class="form-input" placeholder="Nome completo">
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <label class="form-label" for="installments">Parcelas</label>
+                                <select class="form-input" id="installments">
+                                    <option value="1">1x sem juros</option>
+                                    <option value="2">2x sem juros</option>
+                                    <option value="3">3x sem juros</option>
+                                    <option value="6">6x sem juros</option>
+                                    <option value="12">12x com juros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="debitDetails" style="display: none;">
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">O desconto será aplicado automaticamente no resumo do pedido.</p>
+                        </div>
+                        <div id="boletoDetails" style="display: none;">
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">O boleto será gerado após a confirmação do pedido e enviado por e-mail. O pagamento deve ser realizado em até 3 dias úteis.</p>
+                        </div>
+                        <div id="cashDetails" style="display: none;">
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">O pagamento será realizado no momento da entrega. Tenha o troco preparado.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cart-item">
+                    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-primary);">Itens do Pedido</h2>
+                    <div id="checkoutItems">
+                        <!-- Itens serão carregados via JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <div id="checkoutSummary">
+                <!-- Resumo será carregado via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3>O Marceneiro</h3>
+                    <p>Móveis planejados de qualidade para transformar sua casa.</p>
+                </div>
+                <div>
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="pedidos.html">Meus Pedidos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Contato</h3>
+                    <p>Email: contato@omarceneiro.com<br>Telefone: (11) 9999-9999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 O Marceneiro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await updateNavigation();
+                
+                // Verificar se usuário está logado
+                const user = getCurrentUser();
+                if (!user) {
+                    alert('Você precisa estar logado para finalizar a compra');
+                    globalThis.location.href = 'login.html';
+                    return;
+                }
+                
+                // Carregar itens do checkout
+                function loadCheckout() {
+            const cart = getCart();
+            const itemsContainer = document.getElementById('checkoutItems');
+            const summaryContainer = document.getElementById('checkoutSummary');
+            
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<p>Seu carrinho está vazio</p>';
+                summaryContainer.innerHTML = '';
+                return;
+            }
+            
+            let total = 0;
+            itemsContainer.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (!product) return '';
+                
+                const itemTotal = product.price * item.quantity;
+                total += itemTotal;
+                
+                return `
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        ${product.images[0] ? `<img src="${escapeHtml(product.images[0])}" alt="${escapeHtml(product.name)}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 0.25rem;">` : ''}
+                        <div>
+                            <div style="font-weight: 600;">${escapeHtml(product.name)}</div>
+                            <div style="font-size: 0.875rem; color: #6b7280;">Qtd: ${item.quantity} × R$ ${product.price.toFixed(2)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            updateCheckoutSummary();
+        }
+        
+        // Gerenciar detalhes de pagamento
+        const paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
+        const paymentDetails = document.getElementById('paymentDetails');
+        
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Esconder todos os detalhes
+                document.querySelectorAll('#paymentDetails > div').forEach(div => {
+                    div.style.display = 'none';
+                });
+                
+                // Mostrar detalhes do método selecionado
+                const method = this.value;
+                const detailsId = method + 'Details';
+                const detailsElement = document.getElementById(detailsId);
+                
+                if (detailsElement) {
+                    detailsElement.style.display = 'block';
+                    paymentDetails.style.display = 'block';
+                } else {
+                    paymentDetails.style.display = 'none';
+                }
+                
+                // Atualizar resumo com desconto
+                updateCheckoutSummary();
+            });
+        });
+        
+        // Mostrar detalhes do método padrão (PIX)
+        if (paymentRadios[0]) {
+            paymentRadios[0].dispatchEvent(new Event('change'));
+        }
+        
+        globalThis.finalizeOrder = function() {
+            const shippingAddress = document.getElementById('shippingAddress').value.trim();
+            const selectedPayment = document.querySelector('input[name="paymentMethod"]:checked');
+            
+            if (!shippingAddress) {
+                alert('Por favor, informe o endereço de entrega');
+                return;
+            }
+            
+            if (!selectedPayment) {
+                alert('Por favor, selecione uma forma de pagamento');
+                return;
+            }
+            
+            const paymentMethod = selectedPayment.value;
+            
+            // Validação para cartão de crédito
+            if (paymentMethod === 'credit') {
+                const cardNumber = document.getElementById('cardNumber').value.trim();
+                const cardName = document.getElementById('cardName').value.trim();
+                
+                if (!cardNumber || cardNumber.replaceAll(/\s/g, '').length < 16) {
+                    alert('Por favor, preencha o número do cartão corretamente');
+                    return;
+                }
+                
+                if (!cardName) {
+                    alert('Por favor, preencha o nome no cartão');
+                    return;
+                }
+            }
+            
+            const order = createOrder(shippingAddress, paymentMethod);
+            
+            if (order) {
+                alert('Pedido realizado com sucesso!');
+                globalThis.location.href = 'pedidos.html';
+            } else {
+                alert('Erro ao criar pedido');
+            }
+        }
+        
+        function updateCheckoutSummary() {
+            const selectedPayment = document.querySelector('input[name="paymentMethod"]:checked');
+            if (!selectedPayment) return;
+            
+            const cart = getCart();
+            if (cart.length === 0) return;
+            
+            let total = 0;
+            cart.forEach(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (product) {
+                    total += product.price * item.quantity;
+                }
+            });
+            
+            let discount = 0;
+            let discountText = '';
+            
+            if (selectedPayment.value === 'pix') {
+                discount = total * 0.05;
+                discountText = 'Desconto PIX (5%)';
+            } else if (selectedPayment.value === 'debit') {
+                discount = total * 0.03;
+                discountText = 'Desconto Débito (3%)';
+            }
+            
+            const finalTotal = total - discount;
+            
+            const summaryContainer = document.getElementById('checkoutSummary');
+            summaryContainer.innerHTML = `
+                <div class="cart-summary">
+                    <h2>Resumo do Pedido</h2>
+                    <div class="cart-summary-item">
+                        <span>Subtotal</span>
+                        <span>R$ ${total.toFixed(2)}</span>
+                    </div>
+                    ${discount > 0 ? `
+                        <div class="cart-summary-item" style="color: var(--success);">
+                            <span>${discountText}</span>
+                            <span>- R$ ${discount.toFixed(2)}</span>
+                        </div>
+                    ` : ''}
+                    <div class="cart-summary-item">
+                        <span>Frete</span>
+                        <span>Calculado no pagamento</span>
+                    </div>
+                    <div class="cart-summary-total">
+                        <span>Total</span>
+                        <span class="total-value">R$ ${finalTotal.toFixed(2)}</span>
+                    </div>
+                    <button onclick="finalizeOrder()" class="btn-submit" style="width: 100%; margin-top: 1rem;">Finalizar Pedido</button>
+                </div>
+            `;
+                }
+                
+                loadCheckout();
+            } catch (err) {
+                console.error('Erro ao inicializar:', err);
+            }
+        });
+    </script>
+    
+    <!-- Botão Flutuante WhatsApp -->
+    <button type="button" onclick="openWhatsApp('Olá! Tenho dúvidas sobre meu pedido.');" class="whatsapp-float" title="Fale conosco no WhatsApp" aria-label="Abrir WhatsApp">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0C7.164 0 0 7.164 0 16c0 2.827.744 5.48 2.044 7.78L0 32l8.47-2.044C10.77 32.256 13.423 33 16 33c8.836 0 16-7.164 16-16S24.836 0 16 0z" fill="#25D366"/>
+            <path d="M24.38 22.12c-.3.85-1.5 1.58-2.47 1.79-.62.13-1.43.23-2.33-.26-.47-.25-1.08-.59-1.85-1.01-3.05-1.68-5.03-3.66-5.66-4.28-.63-.63-1.33-1.68-1.85-2.64-.52-.96-.1-1.48.13-1.96.23-.48.52-.96.78-1.44.26-.48.39-.96.26-1.44-.13-.48-.52-.85-1.18-1.18l-.85-.39c-.48-.23-1.18-.39-1.79-.39-.62 0-1.31.13-1.96.52-.65.39-1.31 1.05-1.79 1.85-.48.8-.78 1.79-.78 2.77 0 .98.26 1.96.78 2.77.52.8 1.18 1.58 1.85 2.25.67.67 1.44 1.31 2.25 1.79.8.48 1.68.85 2.64 1.18.96.33 1.96.52 2.9.52.94 0 1.85-.19 2.64-.52.8-.33 1.58-.78 2.25-1.31.67-.52 1.18-1.05 1.68-1.68.5-.63.85-1.31 1.05-1.96.2-.65.26-1.31.13-1.96z" fill="#FFF"/>
+        </svg>
+        <span class="whatsapp-pulse"></span>
+    </button>
+</body>
+</html>
+

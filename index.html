@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="O Marceneiro - Especialistas em móveis planejados de alta qualidade. Transforme sua casa com móveis sob medida, design exclusivo e acabamento impecável.">
+    <title>O Marceneiro - Móveis Planejados de Qualidade | Especialistas em Marcenaria</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <img src="logo.svg" alt="O Marceneiro">
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+                <span id="userMenu" style="display: none;">
+                    <a href="pedidos.html">Meus Pedidos</a>
+                    <a href="carrinho.html">Carrinho</a>
+                    <span id="adminMenu" style="display: none;">
+                        <a href="admin.html">Admin</a>
+                    </span>
+                    <a href="#" id="logoutBtn">Sair</a>
+                </span>
+                <span id="guestMenu">
+                    <a href="login.html">Entrar</a>
+                    <a href="cadastro.html" class="btn-primary">Cadastrar</a>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Móveis Planejados de Qualidade</h1>
+            <p class="hero-subtitle">Transforme sua casa com móveis únicos e personalizados. Mais de 15 anos de experiência em marcenaria, criando soluções sob medida que combinam estilo, funcionalidade e durabilidade para seu lar.</p>
+            <a href="produtos.html" class="btn-hero">Explorar Produtos</a>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Produtos em Destaque</h2>
+            <p class="section-subtitle">Conheça nossa seleção especial de móveis planejados, cuidadosamente escolhidos para oferecer o melhor em design e qualidade</p>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Produtos serão carregados via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="sobre">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Sobre a O Marceneiro</h2>
+                    <p>Com mais de 15 anos de experiência no mercado, a O Marceneiro é referência em móveis planejados de alta qualidade. Nossa missão é transformar sonhos em realidade, criando móveis sob medida que se adaptam perfeitamente ao seu espaço e estilo de vida.</p>
+                    <p>Utilizamos apenas materiais de primeira linha, como MDF de alta densidade, fórmica premium e acabamentos em laca, garantindo durabilidade e beleza que perduram por anos. Nossa equipe de marceneiros especializados trabalha com precisão e atenção aos detalhes, entregando móveis que superam expectativas.</p>
+                    <p>Atendemos residências e empresas em toda a região, oferecendo desde projetos simples até cozinhas e escritórios completos. Cada projeto é único e desenvolvido especialmente para você, respeitando seu orçamento e prazos.</p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600" alt="Marcenaria profissional" class="about-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Por Que Escolher a O Marceneiro?</h2>
+            <p class="section-subtitle">Nossos diferenciais que fazem toda a diferença na qualidade dos seus móveis</p>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Design Personalizado</h3>
+                    <p>Projetos exclusivos desenvolvidos especialmente para seu espaço. Nossa equipe de designers trabalha em conjunto com você para criar móveis que refletem seu estilo e personalidade, otimizando cada centímetro disponível.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">✨</div>
+                    <h3>Qualidade Premium</h3>
+                    <p>Utilizamos apenas materiais selecionados de fornecedores certificados. MDF de alta densidade, fórmica de primeira linha, ferragens importadas e acabamentos impecáveis garantem móveis que duram gerações.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Entrega e Instalação</h3>
+                    <p>Nossa equipe especializada cuida de toda a logística, desde o transporte seguro até a instalação profissional. Garantimos que seus móveis cheguem em perfeito estado e sejam instalados com precisão milimétrica.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Garantia e Suporte</h3>
+                    <p>Oferecemos garantia completa em todos os nossos produtos e serviços. Nossa equipe de suporte está sempre disponível para resolver qualquer dúvida ou necessidade de manutenção após a entrega.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💰</div>
+                    <h3>Melhor Custo-Benefício</h3>
+                    <p>Preços justos e transparentes, sem surpresas. Oferecemos as melhores condições de pagamento e trabalhamos com orçamentos detalhados, permitindo que você planeje seu investimento com tranquilidade.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Prazos Cumpridos</h3>
+                    <p>Comprometimento total com os prazos acordados. Nossa organização e experiência garantem que seu projeto seja entregue no tempo prometido, sem comprometer a qualidade do trabalho.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="servicos">
+        <div class="container">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <p class="section-subtitle">Soluções completas em móveis planejados para todos os ambientes da sua casa ou empresa</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>🏠 Cozinhas Planejadas</h3>
+                    <p>Projetos completos de cozinhas planejadas com armários superiores e inferiores, ilhas, bancadas em granito ou quartzo, e todos os acessórios necessários para uma cozinha funcional e moderna.</p>
+                </div>
+                <div class="service-card">
+                    <h3>🛏️ Quartos e Closets</h3>
+                    <p>Guarda-roupas planejados, closets organizados, cabeceiras e móveis para quartos. Soluções que maximizam o espaço e organizam suas roupas e pertences de forma prática e elegante.</p>
+                </div>
+                <div class="service-card">
+                    <h3>🛋️ Salas e Ambientes</h3>
+                    <p>Estantes, painéis para TV, racks, mesas laterais e móveis para sala de estar. Criamos ambientes acolhedores e funcionais que refletem seu estilo de vida.</p>
+                </div>
+                <div class="service-card">
+                    <h3>💼 Escritórios</h3>
+                    <p>Móveis planejados para home office e escritórios corporativos. Mesas, estantes, gaveteiros e painéis modulares que otimizam o espaço de trabalho e aumentam a produtividade.</p>
+                </div>
+                <div class="service-card">
+                    <h3>🚿 Banheiros</h3>
+                    <p>Armários para banheiro, nichos, espelhos e móveis planejados que transformam seu banheiro em um ambiente funcional e elegante, aproveitando cada espaço disponível.</p>
+                </div>
+                <div class="service-card">
+                    <h3>📐 Projetos Personalizados</h3>
+                    <p>Soluções sob medida para necessidades específicas. Nossa equipe desenvolve projetos exclusivos para qualquer ambiente, sempre priorizando funcionalidade e estética.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contato">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <p class="section-subtitle">Estamos prontos para transformar seus sonhos em realidade. Fale conosco e solicite um orçamento sem compromisso</p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Informações de Contato</h3>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div class="contact-item-content">
+                            <h4>Telefone</h4>
+                            <p>(11) 9999-9999<br>(11) 3333-3333</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📧</div>
+                        <div class="contact-item-content">
+                            <h4>Email</h4>
+                            <p>contato@omarceneiro.com<br>vendas@omarceneiro.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-content">
+                            <h4>Endereço</h4>
+                            <p>Rua das Madeiras, 123<br>São Paulo, SP - CEP 01234-567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">💬</div>
+                        <div class="contact-item-content">
+                            <h4>WhatsApp</h4>
+                            <p>
+                                <button type="button" onclick="openWhatsApp('Olá! Gostaria de solicitar um orçamento.');" class="whatsapp-link" style="background: none; border: none; padding: 0; color: #25D366; text-decoration: none; font-weight: 600; cursor: pointer; font-size: inherit; font-family: inherit;">
+                                    (11) 99999-9999
+                                </button>
+                            </p>
+                            <button type="button" onclick="openWhatsApp('Olá! Gostaria de solicitar um orçamento.');" class="btn-whatsapp">
+                                💬 Falar no WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">🕒</div>
+                        <div class="contact-item-content">
+                            <h4>Horário de Atendimento</h4>
+                            <p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 13h</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <h3>Áreas de Atendimento</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Atendemos toda a Grande São Paulo e região metropolitana com entrega e instalação inclusas.</p>
+                    <div class="service-card" style="margin-bottom: 1rem;">
+                        <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">📍 Zona Norte</h4>
+                        <p style="font-size: 0.95rem;">Santana, Tucuruvi, Casa Verde, Vila Guilherme</p>
+                    </div>
+                    <div class="service-card" style="margin-bottom: 1rem;">
+                        <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">📍 Zona Sul</h4>
+                        <p style="font-size: 0.95rem;">Vila Mariana, Moema, Campo Belo, Saúde</p>
+                    </div>
+                    <div class="service-card" style="margin-bottom: 1rem;">
+                        <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">📍 Zona Leste</h4>
+                        <p style="font-size: 0.95rem;">Tatuapé, Mooca, Vila Formosa, Penha</p>
+                    </div>
+                    <div class="service-card">
+                        <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">📍 Zona Oeste</h4>
+                        <p style="font-size: 0.95rem;">Pinheiros, Vila Madalena, Butantã, Lapa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3>O Marceneiro</h3>
+                    <p>Especialistas em móveis planejados há mais de 15 anos. Transformamos espaços com qualidade, design e funcionalidade, criando móveis sob medida que fazem a diferença no seu dia a dia.</p>
+                </div>
+                <div>
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="pedidos.html">Meus Pedidos</a></li>
+                        <li><a href="carrinho.html">Carrinho</a></li>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#servicos">Serviços</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Contato</h3>
+                    <p>📧 Email: contato@omarceneiro.com<br>📞 Telefone: (11) 9999-9999<br>💬 WhatsApp: <button type="button" onclick="openWhatsApp('Olá! Gostaria de mais informações.');" class="whatsapp-link-footer" style="background: none; border: none; padding: 0; color: var(--secondary); text-decoration: none; font-weight: 600; cursor: pointer; font-size: inherit; font-family: inherit;">(11) 99999-9999</button><br>📍 Rua das Madeiras, 123<br>São Paulo, SP - CEP 01234-567</p>
+                </div>
+                <div>
+                    <h3>Redes Sociais</h3>
+                    <p>📱 Instagram: @omarceneiro<br>📘 Facebook: /omarceneiro<br>💼 LinkedIn: /omarceneiro<br>📺 YouTube: O Marceneiro Oficial</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 O Marceneiro. Todos os direitos reservados. | CNPJ: 12.345.678/0001-90</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <button type="button" onclick="openWhatsApp('Olá! Gostaria de mais informações sobre os móveis planejados.');" class="whatsapp-float" title="Fale conosco no WhatsApp" aria-label="Abrir WhatsApp">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0C7.164 0 0 7.164 0 16c0 2.827.744 5.48 2.044 7.78L0 32l8.47-2.044C10.77 32.256 13.423 33 16 33c8.836 0 16-7.164 16-16S24.836 0 16 0z" fill="#25D366"/>
+            <path d="M24.38 22.12c-.3.85-1.5 1.58-2.47 1.79-.62.13-1.43.23-2.33-.26-.47-.25-1.08-.59-1.85-1.01-3.05-1.68-5.03-3.66-5.66-4.28-.63-.63-1.33-1.68-1.85-2.64-.52-.96-.1-1.48.13-1.96.23-.48.52-.96.78-1.44.26-.48.39-.96.26-1.44-.13-.48-.52-.85-1.18-1.18l-.85-.39c-.48-.23-1.18-.39-1.79-.39-.62 0-1.31.13-1.96.52-.65.39-1.31 1.05-1.79 1.85-.48.8-.78 1.79-.78 2.77 0 .98.26 1.96.78 2.77.52.8 1.18 1.58 1.85 2.25.67.67 1.44 1.31 2.25 1.79.8.48 1.68.85 2.64 1.18.96.33 1.96.52 2.9.52.94 0 1.85-.19 2.64-.52.8-.33 1.58-.78 2.25-1.31.67-.52 1.18-1.05 1.68-1.68.5-.63.85-1.31 1.05-1.96.2-.65.26-1.31.13-1.96z" fill="#FFF"/>
+        </svg>
+        <span class="whatsapp-pulse"></span>
+    </button>
+
+    <script src="database.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                loadFeaturedProducts();
+                await updateNavigation();
+            } catch (err) {
+                console.error('Erro ao inicializar:', err);
+            }
+        });
+    </script>
+</body>
+</html>

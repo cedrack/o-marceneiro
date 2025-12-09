@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - O Marceneiro</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <img src="logo.svg" alt="O Marceneiro">
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Produtos</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#servicos">Serviços</a>
+                <a href="index.html#contato">Contato</a>
+                <span id="userMenu" style="display: none;">
+                    <a href="pedidos.html">Meus Pedidos</a>
+                    <a href="carrinho.html">Carrinho</a>
+                    <span id="adminMenu" style="display: none;">
+                        <a href="admin.html">Admin</a>
+                    </span>
+                    <a href="#" id="logoutBtn">Sair</a>
+                </span>
+                <span id="guestMenu">
+                    <a href="login.html">Entrar</a>
+                    <a href="cadastro.html" class="btn-primary">Cadastrar</a>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="cart-container container">
+        <h1 class="section-title" style="margin-bottom: 1rem;">Carrinho de Compras</h1>
+        <p class="section-subtitle" style="margin-bottom: 2rem;">Revise seus itens antes de finalizar a compra</p>
+        
+        <div class="cart-grid">
+            <div id="cartItems">
+                <!-- Itens do carrinho serão carregados via JavaScript -->
+            </div>
+            <div id="cartSummary">
+                <!-- Resumo será carregado via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3>O Marceneiro</h3>
+                    <p>Móveis planejados de qualidade para transformar sua casa.</p>
+                </div>
+                <div>
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="pedidos.html">Meus Pedidos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Contato</h3>
+                    <p>Email: contato@omarceneiro.com<br>Telefone: (11) 9999-9999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 O Marceneiro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="app.js"></script>
+    <script>
+        updateNavigation().catch(err => console.error('Erro ao atualizar navegação:', err));
+        loadCart().catch(err => console.error('Erro ao carregar carrinho:', err));
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - O Marceneiro</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-box">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <h1 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; color: var(--primary);">🪵 O Marceneiro</h1>
+                <h2 class="form-title">Crie sua conta</h2>
+                <p class="form-subtitle">Junte-se a nós e transforme sua casa</p>
+            </div>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label" for="name">Nome Completo</label>
+                    <input type="text" id="name" class="form-input" placeholder="Seu nome completo" required minlength="3">
+                    <div id="nameError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="seu@email.com" required>
+                    <div id="emailError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Senha</label>
+                    <input type="password" id="password" class="form-input" placeholder="Mínimo 6 caracteres" required minlength="6">
+                    <div id="passwordError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">Confirmar Senha</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="Digite a senha novamente" required>
+                    <div id="confirmPasswordError" class="error-message"></div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">Criar Conta</button>
+            </form>
+
+            <div class="form-link">
+                <p>Já tem uma conta? <a href="login.html">Fazer login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            ['nameError', 'emailError', 'passwordError', 'confirmPasswordError'].forEach(id => {
+                document.getElementById(id).textContent = '';
+            });
+            
+            let hasError = false;
+            
+            if (name.length < 3) {
+                document.getElementById('nameError').textContent = 'Nome deve ter no mínimo 3 caracteres';
+                hasError = true;
+            }
+            
+            if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Senha deve ter no mínimo 6 caracteres';
+                hasError = true;
+            }
+            
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = '❌ Senhas não coincidem';
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Criando conta...';
+            
+            setTimeout(() => {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                if (users.find(u => u.email === email)) {
+                    document.getElementById('emailError').textContent = '❌ Email já cadastrado';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Criar Conta';
+                    return;
+                }
+                
+                const newUser = {
+                    id: Date.now().toString(),
+                    name: name,
+                    email: email,
+                    password: password,
+                    role: 'CLIENT'
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                alert('✅ Conta criada com sucesso!');
+                globalThis.location.href = 'login.html';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
